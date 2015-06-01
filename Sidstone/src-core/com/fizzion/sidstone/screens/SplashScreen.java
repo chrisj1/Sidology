@@ -27,6 +27,9 @@ public class SplashScreen implements Screen {
 	private Image splashImg;
 	private Image nameImg;
 	
+	private Sound startup;
+	private boolean played = false;
+	
 	public SplashScreen(final Application app) {
 		this.app = app;
 		this.stage = new Stage(new FitViewport(Application.V_WIDTH, Application.V_HEIGHT, app.cam));
@@ -35,6 +38,8 @@ public class SplashScreen implements Screen {
 	@Override
 	public void show() {
 		Gdx.input.setInputProcessor(stage);
+		
+		startup = Gdx.audio.newSound(Gdx.files.internal("aud/startup.mp3"));
 		
 		Texture splashTex = app.assets.get("img/splash.png", Texture.class);
 		splashImg = new Image(splashTex);
@@ -47,7 +52,7 @@ public class SplashScreen implements Screen {
 		stage.addActor(splashImg);
 		stage.addActor(nameImg);
 		
-		splashImg.setPosition(stage.getWidth() / 2 - 16, stage.getHeight() / 2 + 100);
+		splashImg.setPosition(stage.getWidth() / 2 - 200, stage.getHeight() / 2 + 100);
 		nameImg.setPosition(stage.getWidth() / 2 - 54, stage.getHeight() / 2);
 		
 		nameImg.addAction(sequence(alpha(0), scaleTo(3f, 3f), delay(2.5f), fadeIn(.5f), delay(1f), fadeOut(1.25f)));
@@ -77,6 +82,11 @@ public class SplashScreen implements Screen {
 		
 		if(splashImg.getActions().size == 0)
 			app.setScreen(app.mainMenuScreen);
+		
+		if(nameImg.getColor().a >= 0.01 && !played) {
+			startup.play(0.5f);
+			played = true;
+		}
 	}
 
 	@Override
@@ -97,6 +107,7 @@ public class SplashScreen implements Screen {
 
 	@Override
 	public void dispose() {
+		startup.dispose();
 		stage.dispose();
 	}
 
