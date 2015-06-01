@@ -1,9 +1,17 @@
 package com.fizzion.sidstone.screens;
 
-import static com.badlogic.gdx.scenes.scene2d.actions.Actions.*;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.alpha;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.delay;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.fadeIn;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.fadeOut;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.moveTo;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.parallel;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.scaleTo;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.sequence;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Interpolation;
@@ -17,6 +25,7 @@ public class SplashScreen implements Screen {
 	private final Application app;
 	private Stage stage;
 	private Image splashImg;
+	private Image nameImg;
 	
 	public SplashScreen(final Application app) {
 		this.app = app;
@@ -27,19 +36,27 @@ public class SplashScreen implements Screen {
 	public void show() {
 		Gdx.input.setInputProcessor(stage);
 		
-		Texture splashTex = app.assets.get("splash.png", Texture.class);
+		Texture splashTex = app.assets.get("img/splash.png", Texture.class);
 		splashImg = new Image(splashTex);
 		splashImg.setOrigin(splashImg.getWidth() / 2, splashImg.getHeight() / 2);
 		
+		Texture nameTex = app.assets.get("img/name.png", Texture.class);
+		nameImg = new Image(nameTex);
+		nameImg.setOrigin(nameImg.getWidth() / 2, nameImg.getWidth() / 2);
+		
 		stage.addActor(splashImg);
+		stage.addActor(nameImg);
 		
-		splashImg.setPosition(stage.getWidth() / 2 - 32, stage.getHeight() / 2 + 100);
+		splashImg.setPosition(stage.getWidth() / 2 - 16, stage.getHeight() / 2 + 100);
+		nameImg.setPosition(stage.getWidth() / 2 - 54, stage.getHeight() / 2);
 		
+		nameImg.addAction(sequence(alpha(0), scaleTo(3f, 3f), delay(2.5f), fadeIn(.5f), delay(1f), fadeOut(1.25f)));
 		splashImg.addAction(sequence(alpha(0), scaleTo(.1f, .1f),
 						parallel(fadeIn(2f, Interpolation.pow2),
-								scaleTo(2f, 2f, 2.5f, Interpolation.pow5),
-								moveTo(stage.getWidth() / 2 - 32, stage.getHeight() / 2 - 26, 2f, Interpolation.swing)),
+								scaleTo(4f, 4f, 2.5f, Interpolation.pow5),
+								moveTo(stage.getWidth() / 2 - 20, stage.getHeight() / 2 + 32, 2f, Interpolation.swing)),
 								delay(1.5f), fadeOut(1.25f)));
+		
 	}
 
 	@Override

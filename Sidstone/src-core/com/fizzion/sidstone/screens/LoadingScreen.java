@@ -2,6 +2,8 @@ package com.fizzion.sidstone.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.assets.loaders.SoundLoader;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
@@ -23,8 +25,9 @@ public class LoadingScreen implements Screen {
 	}
 	
 	public void queueAssets() {
-		app.assets.load("badlogic.jpg", Texture.class); //Example
-		app.assets.load("splash.png", Texture.class); //Studio icon
+		app.assets.load("img/badlogic.jpg", Texture.class); //Example
+		app.assets.load("img/splash.png", Texture.class); //Studio icon
+		app.assets.load("img/name.png", Texture.class); //Studio name
 	}
 	
 	@Override
@@ -55,9 +58,7 @@ public class LoadingScreen implements Screen {
 	private void update(float delta) {
 		float lastProgress = progress;
 		progress = MathUtils.lerp(progress, app.assets.getProgress(), .1f);
-		System.out.println(progress + " " + lastProgress);
 		if(app.assets.update() && progress - lastProgress < 0.00001) {
-			System.out.println("Equal");
 			app.setScreen(app.splashScreen);
 		}
 	}

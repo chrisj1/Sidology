@@ -26,6 +26,10 @@ public class MainMenuScreen implements Screen {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
 		update(delta);
+		
+		app.batch.begin();
+		app.font.draw(app.batch, "MENU DEBUG", stage.getWidth() / 2 - 32, stage.getHeight() / 2);
+		app.batch.end();
 	}
 	
 	private void update(float delta) {
