@@ -2,24 +2,20 @@ package com.fizzion.sidstone.desktop;
 
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
-import com.fizzion.sidstone.Game;
+import com.fizzion.sidstone.Application;
 
 public class DesktopLauncher {
 	
-	private static final String TITLE = "Sidstone";
-	
-	private static final int WIDTH = 1600;
-	private static final int HEIGHT = 900;
 	private static final int FPS = 60;
 	
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration cfg = new LwjglApplicationConfiguration();
-		cfg.title = TITLE;
-		cfg.width = WIDTH;
-		cfg.height = HEIGHT;
+		cfg.title = Application.TITLE + " " + Application.DEV + " v" + Application.VERSION;
+		cfg.width = Application.V_WIDTH;
+		cfg.height = Application.V_HEIGHT;
 		cfg.backgroundFPS = FPS;
 		cfg.foregroundFPS = FPS;
-		new LwjglApplication(new Game(), cfg);
+		new LwjglApplication(new Application(), cfg);
 	}
 	
 }
