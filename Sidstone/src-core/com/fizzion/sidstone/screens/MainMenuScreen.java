@@ -12,8 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.utils.Scaling;
-import com.badlogic.gdx.utils.viewport.ScalingViewport;
+import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.fizzion.sidstone.Application;
 
 public class MainMenuScreen implements Screen {
@@ -33,7 +32,7 @@ public class MainMenuScreen implements Screen {
 	
 	public MainMenuScreen(final Application app) {
 		this.app = app;
-		this.stage = new Stage(new ScalingViewport(Scaling.stretch, Application.V_WIDTH, Application.V_HEIGHT, app.cam));
+		this.stage = new Stage(new FitViewport(Application.V_WIDTH, Application.V_HEIGHT, app.cam));
 	}
 	
 	@Override
@@ -80,7 +79,7 @@ public class MainMenuScreen implements Screen {
 	
 	private void drawTitle() {
 		app.batch.begin();
-		app.font108.draw(app.batch, "SIDSTONE", (stage.getWidth() / 2) - 235, 750);
+		app.font108.draw(app.batch, "SIDSTONE", (stage.getWidth() / 2), Application.V_HEIGHT - 100);
 		app.batch.end();
 	}
 	

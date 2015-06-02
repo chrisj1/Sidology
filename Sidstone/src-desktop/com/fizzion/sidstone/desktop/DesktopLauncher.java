@@ -15,22 +15,11 @@ public class DesktopLauncher {
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration cfg = new LwjglApplicationConfiguration();
 		cfg.title = Application.TITLE + " " + Application.DEV + " v" + Application.VERSION;
-		generateDIMS();
 		cfg.width = Application.V_WIDTH;
 		cfg.height = Application.V_HEIGHT;
 		cfg.backgroundFPS = FPS;
 		cfg.foregroundFPS = FPS;
 		cfg.addIcon("img/icon.png", Files.FileType.Internal);
-		cfg.fullscreen = true;
 		new LwjglApplication(new Application(), cfg);
 	}
-	
-	private static void generateDIMS() {
-		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-		double width = screenSize.getWidth();
-		double height = screenSize.getHeight();
-		Application.V_WIDTH = (int) width;
-		Application.V_HEIGHT = (int) height;
-	}
-	
 }
