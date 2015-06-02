@@ -22,13 +22,13 @@ public class MainMenuScreen implements Screen {
 
 	@Override
 	public void render(float delta) {
-		Gdx.gl.glClearColor(1f, 0f, 0f, 1);
+		Gdx.gl.glClearColor(0.2f, 0.01f, 0.2f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
 		update(delta);
 		
 		app.batch.begin();
-		app.font.draw(app.batch, "MENU DEBUG, Chris the amazing one was here", stage.getWidth() / 2 - 32, stage.getHeight() / 2);
+		app.font.draw(app.batch, "MENU DEBUG, Chris is bad at programming", stage.getWidth() / 2 - 32, stage.getHeight() / 2);
 		app.batch.end();
 	}
 	
