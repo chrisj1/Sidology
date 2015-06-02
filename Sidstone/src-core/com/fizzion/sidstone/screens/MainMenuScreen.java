@@ -4,13 +4,15 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.Scaling;
+import com.badlogic.gdx.utils.viewport.ScalingViewport;
 import com.fizzion.sidstone.Application;
 
 public class MainMenuScreen implements Screen {
@@ -28,7 +30,7 @@ public class MainMenuScreen implements Screen {
 	
 	public MainMenuScreen(final Application app) {
 		this.app = app;
-		this.stage = new Stage(new FitViewport(Application.V_WIDTH, Application.V_HEIGHT, app.cam));
+		this.stage = new Stage(new ScalingViewport(Scaling.stretch, Application.V_WIDTH, Application.V_HEIGHT, app.cam));
 	}
 	
 	@Override
@@ -50,12 +52,19 @@ public class MainMenuScreen implements Screen {
 	public void render(float delta) {
 		clearScreen();
 		update(delta);
+		drawBg();
 		stage.draw();
 		drawTitle();
 	}
 	
 	private void update(float delta) {
 		stage.act(delta);
+	}
+	
+	private void drawBg() {
+		app.batch.begin();
+		app.batch.draw(app.assets.get("img/test.png", Texture.class), 0, 0);
+		app.batch.end();
 	}
 	
 	private void clearScreen() {

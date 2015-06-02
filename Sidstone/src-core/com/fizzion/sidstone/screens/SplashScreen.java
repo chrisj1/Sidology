@@ -18,7 +18,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.Scaling;
+import com.badlogic.gdx.utils.viewport.ScalingViewport;
 import com.fizzion.sidstone.Application;
 
 public class SplashScreen implements Screen {
@@ -34,7 +35,7 @@ public class SplashScreen implements Screen {
 	
 	public SplashScreen(final Application app) {
 		this.app = app;
-		this.stage = new Stage(new FitViewport(Application.V_WIDTH, Application.V_HEIGHT, app.cam));
+		this.stage = new Stage(new ScalingViewport(Scaling.stretch, Application.V_WIDTH, Application.V_HEIGHT, app.cam));
 	}
 	
 	@Override
