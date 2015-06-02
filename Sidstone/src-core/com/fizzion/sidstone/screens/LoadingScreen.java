@@ -17,7 +17,9 @@ public class LoadingScreen implements Screen {
 	private final Application app;
 	
 	private ShapeRenderer sr;
+	
 	private float progress;
+	private String loading = "LOADING";
 	
 	public LoadingScreen(final Application app) {
 		this.app = app;
@@ -38,30 +40,49 @@ public class LoadingScreen implements Screen {
 
 	@Override
 	public void render(float delta) {
-		Gdx.gl.glClearColor(0f, 0f, 0f, 1);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		
-		update(delta);
-		
-		sr.begin(ShapeType.Filled);
-		sr.setColor(Color.WHITE);
-		sr.rect(32, app.cam.viewportHeight / 8 - 8, app.cam.viewportWidth - 64, 8);
-		//sr.setColor(Color.BLUE);
-		sr.setColor(Color.RED);
-		sr.rect(33, app.cam.viewportHeight / 8 - 7, progress * (app.cam.viewportWidth - 64) - 2, 6);
-		sr.end();
-		
-		app.batch.begin();
-		app.font.draw(app.batch, "LOADING...", 20, 20);
-		app.batch.end();
+		clearScreen();
+		update(delta);		
+		renderBars();
+		renderLoadingText();
 	}
 	
 	private void update(float delta) {
+		updateLoadingBar();
+		updateLoadingText();
+	}
+	
+	private void clearScreen() {
+		Gdx.gl.glClearColor(0f, 0f, 0f, 1);
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+	}
+	
+	private void renderBars() {
+		sr.begin(ShapeType.Filled);
+		sr.setColor(Color.WHITE);
+		sr.rect(32, app.cam.viewportHeight / 8 - 10, app.cam.viewportWidth - 64, 10);
+		sr.setColor(Color.RED);
+		sr.rect(33, app.cam.viewportHeight / 8 - 9, progress * (app.cam.viewportWidth - 64) - 2, 8);
+		sr.end();
+	}
+	
+	private void renderLoadingText() {
+		app.batch.begin();
+		app.font.draw(app.batch, loading, 20, 20);
+		app.batch.end();
+	}
+	
+	private void updateLoadingBar() {
 		float lastProgress = progress;
 		progress = MathUtils.lerp(progress, app.assets.getProgress(), .1f);
 		if(app.assets.update() && progress - lastProgress < 0.00001) {
 			app.setScreen(app.splashScreen);
 		}
+	}
+	
+	private void updateLoadingText() {
+		loading = loading + ".";
+		if(loading.length() > 371)
+			loading = "LOADING AWESOMENESS";
 	}
 
 	@Override
