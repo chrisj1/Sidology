@@ -18,7 +18,7 @@ public class LoadingScreen implements Screen {
 	private ShapeRenderer sr;
 	
 	private float progress;
-	private String loading = "LOADING AWESOMENESS";
+	private String loading = "LOADING PURE AWESOMENESS"; // changed to pure awesomeness
 	
 	public LoadingScreen(final Application app) {
 		this.app = app;
@@ -83,9 +83,9 @@ public class LoadingScreen implements Screen {
 	
 	private void updateLoadingText() {
 		loading = loading + ".";
-		if(loading.length() > 371)
-			loading = "LOADING AWESOMENESS";
-	}
+		if(loading.length() > 75)
+			loading = "LOADING PURE AWESOMENESS";	
+		}
 
 	@Override
 	public void resize(int width, int height) {
