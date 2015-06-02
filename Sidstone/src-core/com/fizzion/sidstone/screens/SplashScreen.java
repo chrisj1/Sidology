@@ -37,10 +37,36 @@ public class SplashScreen implements Screen {
 	
 	@Override
 	public void show() {
+		init();
+		createActors();
+		setActorPositions();
+		runActions();
+	}
+
+	@Override
+	public void render(float delta) {
+		clearScreen();
+		update(delta);
+		stage.draw();
+	}
+	
+	private void update(float delta) {
+		stage.act(delta);
+		checkScreenSwitch();
+		playSoundOnTime();
+	}
+	
+	private void clearScreen() {
+		Gdx.gl.glClearColor(1f, 1f, 1f, 1);
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+	}
+	
+	private void init() {
 		Gdx.input.setInputProcessor(stage);
-		
 		startup = Gdx.audio.newSound(Gdx.files.internal("aud/startup.mp3"));
-		
+	}
+	
+	private void createActors() {
 		Texture splashTex = app.assets.get("img/splash.png", Texture.class);
 		splashImg = new Image(splashTex);
 		splashImg.setOrigin(splashImg.getWidth() / 2, splashImg.getHeight() / 2);
@@ -51,38 +77,28 @@ public class SplashScreen implements Screen {
 		
 		stage.addActor(splashImg);
 		stage.addActor(nameImg);
-		
+	}
+	
+	private void setActorPositions() {
 		splashImg.setPosition(stage.getWidth() / 2 - 200, stage.getHeight() / 2 + 100);
 		nameImg.setPosition(stage.getWidth() / 2 - 54, stage.getHeight() / 2);
-		
+	}
+	
+	private void runActions() {
 		nameImg.addAction(sequence(alpha(0), scaleTo(3f, 3f), delay(2.5f), fadeIn(.5f), delay(1f), fadeOut(1.25f)));
 		splashImg.addAction(sequence(alpha(0), scaleTo(.1f, .1f),
 						parallel(fadeIn(2f, Interpolation.pow2),
 								scaleTo(4f, 4f, 2.5f, Interpolation.pow5),
 								moveTo(stage.getWidth() / 2 - 20, stage.getHeight() / 2 + 32, 2f, Interpolation.swing)),
 								delay(1.5f), fadeOut(1.25f)));
-		
-	}
-
-	@Override
-	public void render(float delta) {
-		Gdx.gl.glClearColor(1f, 1f, 1f, 1);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		
-		update(delta);
-		
-		stage.draw();
-		
-		app.batch.begin();
-		app.batch.end();
 	}
 	
-	private void update(float delta) {
-		stage.act(delta);
-		
+	private void checkScreenSwitch() {
 		if(splashImg.getActions().size == 0)
 			app.setScreen(app.mainMenuScreen);
-		
+	}
+	
+	private void playSoundOnTime() {
 		if(nameImg.getColor().a >= 0.01 && !played) {
 			startup.play(0.5f);
 			played = true;
