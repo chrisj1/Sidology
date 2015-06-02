@@ -5,9 +5,11 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.fizzion.sidstone.Application;
 
@@ -54,7 +56,6 @@ public class MainMenuScreen implements Screen {
 	
 	private void update(float delta) {
 		stage.act(delta);
-		checkButtons();
 	}
 	
 	private void clearScreen() {
@@ -82,26 +83,42 @@ public class MainMenuScreen implements Screen {
 		buttonQuit.setSize(280, 60);
 		buttonQuit.setPosition((Application.V_WIDTH / 2) - (buttonQuit.getWidth() / 2), 190);
 		
+		addClickListeners();
+		
 		stage.addActor(buttonPlay);
 		stage.addActor(buttonHelp);
 		stage.addActor(buttonOptions);
 		stage.addActor(buttonQuit);
 	}
 	
-	private void checkButtons() {
-		if(buttonPlay.isPressed()) {
-			System.out.println("PLAY");
-		}
-		else if(buttonHelp.isPressed()) {
-			app.setScreen(app.helpScreen);
-		}
-		else if(buttonOptions.isPressed()) {
-			System.out.println("SETTINGS");
-		}
-		else if(buttonQuit.isPressed()) {
-			menuloop.stop();
-			Gdx.app.exit();
-		}
+	private void addClickListeners() {
+		buttonPlay.addListener(new ClickListener() {
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				System.out.println("PLAY");
+			}
+		});
+		
+		buttonHelp.addListener(new ClickListener() {
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				app.setScreen(app.helpScreen);
+			}
+		});
+		
+		buttonOptions.addListener(new ClickListener() {
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				System.out.println("OPTIONS");
+			}
+		});
+		
+		buttonQuit.addListener(new ClickListener() {
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				Gdx.app.exit();
+			}
+		});
 	}
 
 	@Override
