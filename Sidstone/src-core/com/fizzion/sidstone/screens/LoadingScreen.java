@@ -30,6 +30,7 @@ public class LoadingScreen implements Screen {
 		app.assets.load("img/badlogic.jpg", Texture.class); //Example
 		app.assets.load("img/splash.png", Texture.class); //Studio icon
 		app.assets.load("img/name.png", Texture.class); //Studio name
+		app.assets.load("img/test.png", Texture.class); //Res test img
 	}
 	
 	@Override
