@@ -1,5 +1,7 @@
 package com.fizzion.sidstone.desktop;
 
+import com.badlogic.gdx.Files;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.fizzion.sidstone.Application;
@@ -15,6 +17,7 @@ public class DesktopLauncher {
 		cfg.height = Application.V_HEIGHT;
 		cfg.backgroundFPS = FPS;
 		cfg.foregroundFPS = FPS;
+		cfg.addIcon("img/icon.png", Files.FileType.Internal);
 		new LwjglApplication(new Application(), cfg);
 	}
 	
