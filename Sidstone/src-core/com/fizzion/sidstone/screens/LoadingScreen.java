@@ -19,7 +19,7 @@ public class LoadingScreen implements Screen {
 	private ShapeRenderer sr;
 	
 	private float progress;
-	private String loading = "LOADING";
+	private String loading = "LOADING AWESOMENESS";
 	
 	public LoadingScreen(final Application app) {
 		this.app = app;
