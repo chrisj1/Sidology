@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -20,6 +21,8 @@ public class MainMenuScreen implements Screen {
 	private final Application app;
 	private Stage stage;
 	private Skin skin;
+	
+	private Image bgImg;
 	
 	private Sound menuloop;
 	
@@ -45,6 +48,7 @@ public class MainMenuScreen implements Screen {
 		skin.add("default-font", app.font24);
 		skin.load(Gdx.files.internal("ui/uiskin.json"));
 		
+		createActors();
 		initButtons();
 	}
 
@@ -52,7 +56,6 @@ public class MainMenuScreen implements Screen {
 	public void render(float delta) {
 		clearScreen();
 		update(delta);
-		drawBg();
 		stage.draw();
 		drawTitle();
 	}
@@ -61,10 +64,13 @@ public class MainMenuScreen implements Screen {
 		stage.act(delta);
 	}
 	
-	private void drawBg() {
-		app.batch.begin();
-		app.batch.draw(app.assets.get("img/test.png", Texture.class), 0, 0);
-		app.batch.end();
+	private void createActors() {
+		Texture bgTex = app.assets.get("img/test.png", Texture.class);
+		bgImg = new Image(bgTex);
+		bgImg.setPosition(0, 0);
+		//bgImg.setScale(Application.V_WIDTH / bgImg.getWidth(), Application.V_HEIGHT / bgImg.getHeight());
+		
+		stage.addActor(bgImg);
 	}
 	
 	private void clearScreen() {
@@ -74,23 +80,23 @@ public class MainMenuScreen implements Screen {
 	
 	private void drawTitle() {
 		app.batch.begin();
-		app.font108.draw(app.batch, "SIDSTONE", (Application.V_WIDTH / 2) - 235, 750);
+		app.font108.draw(app.batch, "SIDSTONE", (stage.getWidth() / 2) - 235, 750);
 		app.batch.end();
 	}
 	
 	private void initButtons() {
 		buttonPlay = new TextButton("Play", skin, "default");
 		buttonPlay.setSize(280, 60);
-		buttonPlay.setPosition((Application.V_WIDTH / 2) - (buttonPlay.getWidth() / 2), 400);
+		buttonPlay.setPosition((stage.getWidth() / 2) - (buttonPlay.getWidth() / 2), 400);
 		buttonHelp = new TextButton("Help", skin, "default");
 		buttonHelp.setSize(280, 60);
-		buttonHelp.setPosition((Application.V_WIDTH / 2) - (buttonHelp.getWidth() / 2), 330);
+		buttonHelp.setPosition((stage.getWidth() / 2) - (buttonHelp.getWidth() / 2), 330);
 		buttonOptions = new TextButton("Settings", skin, "default");
 		buttonOptions.setSize(280, 60);
-		buttonOptions.setPosition((Application.V_WIDTH / 2) - (buttonOptions.getWidth() / 2), 260);
+		buttonOptions.setPosition((stage.getWidth() / 2) - (buttonOptions.getWidth() / 2), 260);
 		buttonQuit = new TextButton("Quit",skin, "default");
 		buttonQuit.setSize(280, 60);
-		buttonQuit.setPosition((Application.V_WIDTH / 2) - (buttonQuit.getWidth() / 2), 190);
+		buttonQuit.setPosition((stage.getWidth() / 2) - (buttonQuit.getWidth() / 2), 190);
 		
 		addClickListeners();
 		
