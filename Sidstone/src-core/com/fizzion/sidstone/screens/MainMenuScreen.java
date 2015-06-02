@@ -18,22 +18,29 @@ public class MainMenuScreen implements Screen {
 	
 	@Override
 	public void show() {
+		
 	}
 
 	@Override
 	public void render(float delta) {
-		Gdx.gl.glClearColor(0.2f, 0.01f, 0.2f, 1);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		
+		clearScreen();
 		update(delta);
+		drawDebugText();
+	}
+	
+	private void update(float delta) {
 		
+	}
+	
+	private void drawDebugText() {
 		app.batch.begin();
 		app.font.draw(app.batch, "MENU DEBUG, Chris is bad at programming", stage.getWidth() / 2 - 32, stage.getHeight() / 2);
 		app.batch.end();
 	}
 	
-	private void update(float delta) {
-		
+	private void clearScreen() {
+		Gdx.gl.glClearColor(0.2f, 0f, 0.2f, 1);
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 	}
 
 	@Override
