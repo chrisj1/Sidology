@@ -1,6 +1,8 @@
 package com.fizzion.sidstone;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -15,8 +17,8 @@ public class Application extends Game {
 	public static final String TITLE = "Sidstone";
 	public static final String DEV = "Pre-Alpha Dev Build";
 	public static final float VERSION = 0.1f;
-	public static final int V_WIDTH = 800;
-	public static final int V_HEIGHT = 450;
+	public static int V_WIDTH = 1920;
+	public static int V_HEIGHT = 1080;
 	
 	//Rendering to screen components
 	public OrthographicCamera cam;
@@ -57,6 +59,9 @@ public class Application extends Game {
 	 */
 	@Override
 	public void render () {
+		if(Gdx.input.isKeyPressed(Keys.ESCAPE))
+			Gdx.app.exit();
+		
 		super.render();
 	}
 	
