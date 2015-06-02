@@ -15,8 +15,8 @@ public class Application extends Game {
 	public static final String TITLE = "Sidstone";
 	public static final String DEV = "Pre-Alpha Dev Build";
 	public static final float VERSION = 0.1f;
-	public static final int V_WIDTH = 1600;
-	public static final int V_HEIGHT = 900;
+	public static final int V_WIDTH = 800;
+	public static final int V_HEIGHT = 450;
 	
 	//Rendering to screen components
 	public OrthographicCamera cam;
