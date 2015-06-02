@@ -13,7 +13,7 @@ public class Application extends Game {
 	
 	//Window parameters
 	public static final String TITLE = "Sidstone";
-	public static final String DEV = "Pre-Alpha";
+	public static final String DEV = "Pre-Alpha Dev Build";
 	public static final float VERSION = 0.1f;
 	public static final int V_WIDTH = 1600;
 	public static final int V_HEIGHT = 900;

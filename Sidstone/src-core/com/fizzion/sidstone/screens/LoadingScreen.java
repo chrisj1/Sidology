@@ -46,7 +46,8 @@ public class LoadingScreen implements Screen {
 		sr.begin(ShapeType.Filled);
 		sr.setColor(Color.WHITE);
 		sr.rect(32, app.cam.viewportHeight / 8 - 8, app.cam.viewportWidth - 64, 8);
-		sr.setColor(Color.BLUE);
+		//sr.setColor(Color.BLUE);
+		sr.setColor(Color.RED);
 		sr.rect(33, app.cam.viewportHeight / 8 - 7, progress * (app.cam.viewportWidth - 64) - 2, 6);
 		sr.end();
 		
