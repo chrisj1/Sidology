@@ -4,9 +4,12 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
+import com.fizzion.sidstone.screens.HelpScreen;
 import com.fizzion.sidstone.screens.LoadingScreen;
 import com.fizzion.sidstone.screens.MainMenuScreen;
 import com.fizzion.sidstone.screens.SplashScreen;
@@ -23,7 +26,8 @@ public class Application extends Game {
 	//Rendering to screen components
 	public OrthographicCamera cam;
 	public SpriteBatch batch;
-	public BitmapFont font;
+	public BitmapFont font24;
+	public BitmapFont font108;
 	
 	//Stores all assets
 	public AssetManager assets;
@@ -35,6 +39,7 @@ public class Application extends Game {
 	public LoadingScreen loadingScreen;
 	public SplashScreen splashScreen;
 	public MainMenuScreen mainMenuScreen;
+	public HelpScreen helpScreen;
 	
 	/**
 	 * Called upon creating an instance of application (running the program).
@@ -45,11 +50,12 @@ public class Application extends Game {
 		cam = new OrthographicCamera();
 		cam.setToOrtho(false, V_WIDTH, V_HEIGHT);
 		batch = new SpriteBatch();
-		font = new BitmapFont();
+		initFonts();
 		
 		loadingScreen = new LoadingScreen(this);
 		splashScreen = new SplashScreen(this);
 		mainMenuScreen = new MainMenuScreen(this);
+		helpScreen = new HelpScreen(this);
 		
 		this.setScreen(loadingScreen);
 	}
@@ -73,10 +79,24 @@ public class Application extends Game {
 	public void dispose()
 	{
 		batch.dispose();
-		font.dispose();
+		font24.dispose();
+		font108.dispose();
 		assets.dispose();
 		loadingScreen.dispose();
 		splashScreen.dispose();
 		mainMenuScreen.dispose();
+		helpScreen.dispose();
+	}
+	
+	private void initFonts() {
+		FreeTypeFontGenerator g = new FreeTypeFontGenerator(Gdx.files.internal("font/ComicNeue.ttf"));
+		FreeTypeFontGenerator.FreeTypeFontParameter params = new FreeTypeFontGenerator.FreeTypeFontParameter();
+		
+		params.size = 24;
+		params.color = Color.BLUE;
+		font24 = g.generateFont(params);
+		params.size = 108;
+		params.color = Color.GREEN;
+		font108 = g.generateFont(params);
 	}
 }

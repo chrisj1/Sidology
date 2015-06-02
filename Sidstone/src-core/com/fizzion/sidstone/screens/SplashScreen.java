@@ -6,6 +6,7 @@ import static com.badlogic.gdx.scenes.scene2d.actions.Actions.fadeIn;
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.fadeOut;
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.moveTo;
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.parallel;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.run;
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.scaleTo;
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.sequence;
 
@@ -29,6 +30,7 @@ public class SplashScreen implements Screen {
 	
 	private Sound startup;
 	private boolean played = false;
+	private Runnable transitionRunnable;
 	
 	public SplashScreen(final Application app) {
 		this.app = app;
@@ -52,7 +54,6 @@ public class SplashScreen implements Screen {
 	
 	private void update(float delta) {
 		stage.act(delta);
-		checkScreenSwitch();
 		playSoundOnTime();
 	}
 	
@@ -64,6 +65,13 @@ public class SplashScreen implements Screen {
 	private void init() {
 		Gdx.input.setInputProcessor(stage);
 		startup = Gdx.audio.newSound(Gdx.files.internal("aud/startup.mp3"));
+		
+		transitionRunnable = new Runnable() {
+			@Override
+			public void run() {
+				app.setScreen(app.mainMenuScreen);
+			}
+		};
 	}
 	
 	private void createActors() {
@@ -90,12 +98,7 @@ public class SplashScreen implements Screen {
 						parallel(fadeIn(2f, Interpolation.pow2),
 								scaleTo(4f, 4f, 2.5f, Interpolation.pow5),
 								moveTo(stage.getWidth() / 2 - 20, stage.getHeight() / 2 + 32, 2f, Interpolation.swing)),
-								delay(1.5f), fadeOut(1.25f)));
-	}
-	
-	private void checkScreenSwitch() {
-		if(splashImg.getActions().size == 0)
-			app.setScreen(app.mainMenuScreen);
+								delay(1.5f), fadeOut(1.25f), run(transitionRunnable)));
 	}
 	
 	private void playSoundOnTime() {

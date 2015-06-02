@@ -2,11 +2,10 @@ package com.fizzion.sidstone.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.assets.loaders.SoundLoader;
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.MathUtils;
@@ -31,6 +30,8 @@ public class LoadingScreen implements Screen {
 		app.assets.load("img/splash.png", Texture.class); //Studio icon
 		app.assets.load("img/name.png", Texture.class); //Studio name
 		app.assets.load("img/test.png", Texture.class); //Res test img
+		
+		app.assets.load("ui/uiskin.atlas", TextureAtlas.class);
 	}
 	
 	@Override
@@ -68,7 +69,7 @@ public class LoadingScreen implements Screen {
 	
 	private void renderLoadingText() {
 		app.batch.begin();
-		app.font.draw(app.batch, loading, 20, 20);
+		app.font24.draw(app.batch, loading, 20, 20);
 		app.batch.end();
 	}
 	
