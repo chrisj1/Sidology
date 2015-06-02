@@ -28,7 +28,7 @@ public class MainMenuScreen implements Screen {
 		update(delta);
 		
 		app.batch.begin();
-		app.font.draw(app.batch, "MENU DEBUG", stage.getWidth() / 2 - 32, stage.getHeight() / 2);
+		app.font.draw(app.batch, "MENU DEBUG, Chris the amazing one was here", stage.getWidth() / 2 - 32, stage.getHeight() / 2);
 		app.batch.end();
 	}
 	
